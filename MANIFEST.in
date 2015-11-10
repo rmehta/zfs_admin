@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include zfs_admin *.css
+recursive-include zfs_admin *.csv
+recursive-include zfs_admin *.html
+recursive-include zfs_admin *.ico
+recursive-include zfs_admin *.js
+recursive-include zfs_admin *.json
+recursive-include zfs_admin *.md
+recursive-include zfs_admin *.png
+recursive-include zfs_admin *.py
+recursive-include zfs_admin *.svg
+recursive-include zfs_admin *.txt
+recursive-exclude zfs_admin *.pyc

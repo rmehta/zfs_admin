@@ -1,7 +1,7 @@
 import subprocess, frappe
 import libzfs
 
-
+# test
 def sync_disks():
 	"""Sync Disk info using geom disk list"""
 	out = subprocess.check_output(["geom", "disk", "list"])
@@ -19,7 +19,7 @@ def sync_disks():
 		else:
 			disk = frappe.new_doc("Disk")
 			disk.name = name
-		
+
 		# parse properties
 		for line in props.splitlines():
 			if not line: continue
@@ -42,11 +42,6 @@ def sync_zfs():
 	"""Sync ZFS Pool information"""
 	zfs = libzfs.ZFS()
 
-	valid_keys = frappe.get_meta("ZFS Pool").get_valid_columns()
-	percent_keys = ("capacity", "fragmentation")
-	int_keys = ("dedupditto", "freeing", "guid", "leaked", "maxblocksize")
-
-
 	for p in zfs.pools:
 		if frappe.db.exists("ZFS Pool", p.name):
 			pool = frappe.get_doc("ZFS Pool", p.name)
@@ -54,27 +49,7 @@ def sync_zfs():
 			pool = frappe.new_doc("ZFS Pool")
 			pool.name = p.name
 
-		for key, prop in p.properties.iteritems():
-			value = prop.value
-
-			# convert type
-			if value in int_keys:
-				value = int(value)
-			if value in percent_keys:
-				value = int(value[:-1])
-			if value == "dedupratio":
-				# dedupratio is like 1.00x, remove x
-				value = int(value[:-1])
-
-			if key in valid_keys:
-				pool.set(key, value)
-			else:
-				# missing key
-				print key
-
 		print "Saving {0}".format(pool.name)
-		pool.save()
-
+		pool.sync()
 
 	frappe.db.commit()
-

@@ -1,4 +1,3 @@
 frappe
 cython
-enum34
 git+https://github.com/freenas/py-libzfs.git

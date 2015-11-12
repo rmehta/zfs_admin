@@ -56,3 +56,13 @@ def sync_zfs():
 		pool.sync()
 
 	frappe.db.commit()
+
+def run_command(args):
+	"""Run a command via subprocess. Returns "okay" if process when okay
+		or the stderr"""
+	try:
+		out = subprocess.check_output(args, stderr=subprocess.STDOUT)
+		return "okay"
+	except subprocess.CalledProcessError as e:
+		frappe.msgprint(e.output)
+		return e.output

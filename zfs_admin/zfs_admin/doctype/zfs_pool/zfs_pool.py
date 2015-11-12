@@ -8,7 +8,7 @@ import frappe
 import libzfs
 import subprocess
 from frappe.model.document import Document
-from zfs_admin.utils import sync_zfs
+from zfs_admin.utils import sync_zfs, run_command
 
 class ZFSPool(Document):
 	@property
@@ -32,7 +32,7 @@ class ZFSPool(Document):
 		"""Update Disk with pool and health status"""
 		for vdev in self.virtual_devices:
 			if vdev.type == "disk":
-				disk_name = vdev.group_name
+				disk_name = vdev.device_name
 
 				# TODO: diskname wit partion suffix like ada0p1
 				# this needs to be synced better
@@ -54,22 +54,22 @@ class ZFSPool(Document):
 				parent_row = self.add_vdev(vdev)
 
 				if parent_row.type == "disk":
-					parent_row.group_name = self.get_disk_name(vdev.path)
+					parent_row.device_name = self.get_disk_name(vdev.path)
 				else:
 					vdev_len = len([v for v in group_vdevs if v.type==vdev.type])
 					if vdev_len > 1:
 						# name as mirror-1, mirror-2 etc.
 						vdev_id = added.setdefault(vdev.type, 1)
-						parent_row.group_name = "{0}-{1}".format(vdev.type, vdev_id)
+						parent_row.device_name = "{0}-{1}".format(vdev.type, vdev_id)
 						added[vdev.type] += 1
 					else:
-						parent_row.group_name = vdev.type
+						parent_row.device_name = vdev.type
 
 					for disk in vdev.children:
 						row = self.add_vdev(disk, True)
 						row.group_type = parent_row.type
-						row.group_name = self.get_disk_name(disk.path)
-						row.parent_group_name = parent_row.group_name
+						row.device_name = self.get_disk_name(disk.path)
+						row.parent_device_name = parent_row.device_name
 
 	def fix_vdev_ordering(self):
 		"""Remove unused vdev records and order them so that the groups and disks
@@ -82,12 +82,12 @@ class ZFSPool(Document):
 		# reorder in groups
 		new_order = []
 		for d in new_list:
-			if d.parent_group_name: continue
+			if d.parent_device_name: continue
 			new_order.append(d)
 			d.idx = len(new_order)
 			if d.type != "disk":
 				for child in new_list:
-					if child.parent_group_name == d.group_name:
+					if child.parent_device_name == d.device_name:
 						new_order.append(child)
 						child.idx = len(new_order)
 
@@ -142,18 +142,59 @@ class ZFSPool(Document):
 			if str(d.guid) == str(guid):
 				return d
 
+	def zpool_add(self, type, disk1, disk2):
+		"""Runs zpool add"""
+		self.has_permission("write")
+
+		if type.lower()=="disk":
+			args = ["sudo", "zpool", "add", self.name, disk1]
+		else:
+			args = ["sudo", "zpool", "add", self.name, type.lower(), disk1, disk2]
+
+		out = run_command(args)
+		if out=="okay":
+			sync_zfs()
+			return out
+
+	def zpool_detach(self, disk):
+		"""Runs zpool detach"""
+		self.has_permission("write")
+		out = run_command(["sudo", "zpool", "detach", self.name, disk])
+		if out=="okay":
+			sync_zfs()
+			return out
+
+	def zpool_destroy(self):
+		"""Runs zpool destroy"""
+		self.has_permission("delete")
+
+		out = run_command(["sudo", "zpool", "destroy", self.name])
+		if out=="okay":
+			# remove references from disk
+			frappe.db.sql("update tabDisk set zfs_pool='' where zfs_pool=%s", self.name)
+
+			# delete record
+			self.delete()
+
+			sync_zfs()
+			return "okay"
+
 @frappe.whitelist()
 def add(zfs_pool, type, disk1, disk2=None):
 	"""zpool add"""
-	frappe.has_permission("ZFS Pool", "write")
+	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
+	zfs_pool.has_permission("write")
+	return zfs_pool.zpool_add(type, disk1, disk2)
 
-	try:
-		if type.lower()=="disk":
-			args = ["sudo", "zpool", "add", zfs_pool, disk1]
-		else:
-			args = ["sudo", "zpool", "add", zfs_pool, type.lower(), disk1, disk2]
+@frappe.whitelist()
+def detach(zfs_pool, disk):
+	"""zpool detach"""
+	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
+	zfs_pool.has_permission("write")
+	return zfs_pool.zpool_detach(disk)
 
-		out = subprocess.check_output(args)
-		sync_zfs()
-	except subprocess.CalledProcessError as e:
-		frappe.msgprint(e.output)
+@frappe.whitelist()
+def destroy(zfs_pool):
+	"""zpool detach"""
+	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
+	return zfs_pool.zpool_destroy()

@@ -34,12 +34,15 @@ def sync_disks():
 			if key in valid_keys and value:
 				disk.set(key, value)
 
+		disk.zfs_pool = None
+		disk.health = None
 		disk.save()
 
 	frappe.db.commit()
 
 def sync_zfs():
 	"""Sync ZFS Pool information"""
+	sync_disks()
 	zfs = libzfs.ZFS()
 
 	for p in zfs.pools:

@@ -15,7 +15,7 @@ app_version = "0.0.1"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/zfs_admin/css/zfs_admin.css"
-# app_include_js = "/assets/zfs_admin/js/zfs_admin.js"
+app_include_js = "/assets/zfs_admin/js/zfs_admin.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/zfs_admin/css/zfs_admin.css"
@@ -106,4 +106,3 @@ app_version = "0.0.1"
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "zfs_admin.event.get_events"
 # }
-

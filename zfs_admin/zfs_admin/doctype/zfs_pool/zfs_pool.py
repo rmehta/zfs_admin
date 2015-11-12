@@ -9,7 +9,7 @@ import libzfs
 import subprocess
 from frappe.utils import cint
 from frappe.model.document import Document
-from zfs_admin.utils import sync_zfs, run_command
+from zfs_admin.utils import sync_zfs, run_command, sync_properties
 
 class ZFSPool(Document):
 	@property
@@ -21,6 +21,7 @@ class ZFSPool(Document):
 	def sync(self):
 		self.sync_properties()
 		self.sync_vdev()
+		self.sync_datasets()
 		self.save()
 
 	def on_update(self):
@@ -30,6 +31,36 @@ class ZFSPool(Document):
 		"""Sync virtual devices"""
 		self.load_vdevs()
 		self.fix_vdev_ordering()
+
+	def sync_datasets(self):
+		"""Sync dataset info"""
+		self.added = []
+
+		# sync root dataset
+		self.sync_one_dataset(self.zpool.root_dataset)
+
+		# sync all children
+		for c in self.zpool.root_dataset.children_recursive:
+			self.sync_one_dataset(c)
+
+		# delete unsued
+		for d in frappe.db.sql_list("""select name from `tabZFS Dataset`
+			where name not in ({0})""".format(", ".join(["%s"] * len(self.added))), self.added):
+			frappe.delete_doc("ZFS Dataset", d)
+
+	def sync_one_dataset(self, d):
+		if frappe.db.exists("ZFS Dataset", d.name):
+			zdataset = frappe.get_doc("ZFS Dataset", d.name)
+		else:
+			zdataset = frappe.new_doc("ZFS Dataset")
+			zdataset.name = d.name
+
+		sync_properties(zdataset, d.properties)
+
+		zdataset.zfs_pool = self.name
+		zdataset.save()
+
+		self.added.append(zdataset.name)
 
 	def update_disks(self):
 		"""Update Disk with pool and health status"""
@@ -117,28 +148,7 @@ class ZFSPool(Document):
 
 	def sync_properties(self):
 		"""Sync ZFS Pool properties"""
-
-		valid_keys = self.get_valid_columns()
-		percent_keys = ("capacity", "fragmentation")
-		int_keys = ("dedupditto", "freeing", "guid", "leaked", "maxblocksize")
-
-		for key, prop in self.zpool.properties.iteritems():
-			value = prop.value
-
-			# convert type
-			if value in int_keys:
-				value = int(value)
-			if value in percent_keys:
-				value = int(value[:-1])
-			if value == "dedupratio":
-				# dedupratio is like 1.00x, remove x
-				value = int(value[:-1])
-
-			if key in valid_keys:
-				self.set(key, value)
-			else:
-				# missing key
-				print key
+		sync_properties(self, self.zpool.properties)
 
 	def get_vdev_row(self, guid):
 		for d in getattr(self, "virtual_devices", []):

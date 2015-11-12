@@ -57,13 +57,45 @@ def sync_zfs():
 
 	frappe.db.commit()
 
+def sync_properties(doc, properties):
+	"""Sync properties from libzfs.ZFSProperty to document"""
+	valid_keys = doc.get_valid_columns()
+
+	for key, prop in properties.items():
+		value = prop.value
+
+		# convert type
+		field = doc.meta.get_field(key)
+
+		if field:
+			if field.fieldtype == "Int":
+				value = int(value)
+			elif field.fieldtype == "Percent":
+				value = int(value.rstrip("%"))
+
+		doc.set(key, value)
+
 def run_command(args):
 	"""Run a command via subprocess. Returns "okay" if process when okay
 		or the stderr"""
 	try:
 		out = subprocess.check_output(args, stderr=subprocess.STDOUT)
+		add_command_log(args, out, 1)
 		return "okay"
 	except subprocess.CalledProcessError as e:
+		add_command_log(args, e.output, 0)
 		frappe.msgprint("<b>" + " ".join(args) + "</b>")
 		frappe.msgprint(e.output)
 		return e.output
+
+def add_command_log(args, output, success):
+	"""Add to command log.
+
+	Note: The command log is not committed hence it will be saved
+	only if the """
+	frappe.get_doc({
+		"doctype": "ZFS Command Log",
+		"command": " ".join(args),
+		"success": success,
+		"output": output
+	}).insert()

@@ -23,32 +23,46 @@ frappe.ui.form.on("ZFS Pool", {
 	},
 
 	refresh: function(frm) {
-		frm.events.show_dashboard(frm);
 		frm.events.setup_add_device(frm);
-		frm.events.setup_destroy(frm);
+		if(!frm.is_new()) {
+			frm.events.show_dashboard(frm);
+			frm.events.setup_destroy(frm);
+		} else {
+			setTimeout(function() {
+				$(frm.wrapper).find(".empty-form-alert").html(__("Please add a device to save"));
+			}, 500);
+			// save happens via a device
+			frm.disable_save();
+		}
 	},
 
 	setup_destroy: function(frm) {
+		if(frm.is_new()) return;
+
 		frm.page.add_menu_item(__("Destroy"), function() {
-			frappe.call({
-				method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.destroy",
-				args: { zfs_pool: frm.doc.name },
-				callback: function(r) {
-					if(r.message==="okay") {
-						frappe.set_route("List", "ZFS Pool");
+			frappe.confirm(__("Do you want to destory {0}?", [frm.doc.name]), function() {
+				frappe.call({
+					method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.destroy",
+					args: { zfs_pool: frm.doc.name },
+					callback: function(r) {
+						if(r.message==="okay") {
+							frappe.set_route("List", "ZFS Pool");
+						}
 					}
-				}
+				});
 			});
 		});
 	},
 
 	setup_add_device: function(frm) {
-		frm.add_custom_button("Add Device", function() {
+		var btn = frm.add_custom_button("Add Device", function() {
 			var dialog = new frappe.ui.Dialog({
 				title: "Add Device",
 				fields: [
+					{ fieldname: "pool_name", label: __("Pool Name"), fieldtype: "Data",
+						hidden: frm.is_new() ? 0 : 1, reqd: frm.is_new() ? 1 : 0 },
 					{ fieldname: "type", label: __("Device Type"), fieldtype: "Select",
-						options: ["", "Mirror", "RAIDZ", "Disk", "Cache", "Log"], reqd:1},
+						options: ["", "Mirror", "RAIDZ", "Disk", "Spare", "Cache", "Log"], reqd:1},
 					{ fieldname: "disk1", label: __("Disk 1"), fieldtype: "Link",
 						options: "Disk", filters: {"zfs_pool": ""}, reqd: 1},
 					{ fieldname: "disk2", label: __("Disk 2"), fieldtype: "Link",
@@ -74,14 +88,20 @@ frappe.ui.form.on("ZFS Pool", {
 				frappe.call({
 					method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.add",
 					args: {
-						zfs_pool: frm.doc.name,
+						zfs_pool: frm.is_new() ? values.pool_name : frm.doc.name,
 						type: values.type,
 						disk1: values.disk1,
-						disk2: values.disk2
+						disk2: values.disk2,
+						is_new: frm.is_new() ? 1 : 0
 					},
-					callback: function() {
+					callback: function(r) {
 						if(r.message==="okay") {
-							frm.reload_doc();
+							if(frm.is_new()) {
+								frappe.model.remove_from_locals(frm.doc.doctype, frm.doc.name);
+								frappe.set_route("Form", "ZFS Pool", values.pool_name);
+							} else {
+								frm.reload_doc();
+							}
 							dialog.hide();
 						}
 					}
@@ -91,6 +111,8 @@ frappe.ui.form.on("ZFS Pool", {
 
 			dialog.show();
 		});
+
+		if(frm.is_new()) btn.addClass("btn-primary");
 	},
 
 	show_dashboard: function(frm) {
@@ -108,6 +130,11 @@ frappe.ui.form.on("ZFS Pool", {
 				progress_class: "progress-bar-default"
 			},
 		]);
+
+		// text
+		$($.format('<div class="text-muted text-center small" style="margin-top: -10px;">\
+			{0} used of {1}</div>', [frm.doc.allocated, frm.doc.size]))
+			.appendTo($(frm.wrapper).find(".progress-area"));
 
 	}
 });

@@ -64,5 +64,6 @@ def run_command(args):
 		out = subprocess.check_output(args, stderr=subprocess.STDOUT)
 		return "okay"
 	except subprocess.CalledProcessError as e:
+		frappe.msgprint("<b>" + " ".join(args) + "</b>")
 		frappe.msgprint(e.output)
 		return e.output

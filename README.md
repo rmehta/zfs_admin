@@ -8,6 +8,7 @@ MIT
 
 #TODO
 
-- create / destory pools
-- add groups
-- attach disks to groups
+- command log
+- dataset sync
+- create, view, delete datasets
+- web view

@@ -7,6 +7,7 @@ import os
 import frappe
 import libzfs
 import subprocess
+from frappe.utils import cint
 from frappe.model.document import Document
 from zfs_admin.utils import sync_zfs, run_command
 
@@ -20,8 +21,10 @@ class ZFSPool(Document):
 	def sync(self):
 		self.sync_properties()
 		self.sync_vdev()
-		self.update_disks()
 		self.save()
+
+	def on_update(self):
+		self.update_disks()
 
 	def sync_vdev(self):
 		"""Sync virtual devices"""
@@ -75,7 +78,7 @@ class ZFSPool(Document):
 		"""Remove unused vdev records and order them so that the groups and disks
 		appear below each other"""
 		new_list = []
-		for d in self.virtual_devices:
+		for d in getattr(self, "virtual_devices", []):
 			if getattr(d, "mapped", False):
 				new_list.append(d)
 
@@ -138,7 +141,7 @@ class ZFSPool(Document):
 				print key
 
 	def get_vdev_row(self, guid):
-		for d in self.virtual_devices:
+		for d in getattr(self, "virtual_devices", []):
 			if str(d.guid) == str(guid):
 				return d
 
@@ -179,18 +182,30 @@ class ZFSPool(Document):
 			sync_zfs()
 			return "okay"
 
+def zpool_create(name, type, disk1, disk2):
+	"""zpool create"""
+	if type=="Disk":
+		args = ["sudo", "zpool", "create", name, disk1]
+	else:
+		args = ["sudo", "zpool", "create", name, type.lower(), disk1, disk2]
+
+	if run_command(args)=="okay":
+		sync_zfs()
+		return "okay"
+
 @frappe.whitelist()
-def add(zfs_pool, type, disk1, disk2=None):
+def add(zfs_pool, type, disk1, disk2=None, is_new=None):
 	"""zpool add"""
-	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
-	zfs_pool.has_permission("write")
-	return zfs_pool.zpool_add(type, disk1, disk2)
+	if cint(is_new):
+		return zpool_create(zfs_pool, type, disk1, disk2)
+	else:
+		zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
+		return zfs_pool.zpool_add(type, disk1, disk2)
 
 @frappe.whitelist()
 def detach(zfs_pool, disk):
 	"""zpool detach"""
 	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
-	zfs_pool.has_permission("write")
 	return zfs_pool.zpool_detach(disk)
 
 @frappe.whitelist()

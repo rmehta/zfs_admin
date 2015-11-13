@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<!-- Built on Frappe. https://frappe.io/ -->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ZFS Pool</title>
+	<meta name="generator" content="frappe">
+    <link type="text/css" rel="stylesheet" href="https://rmehta.github.io/zfs_admin/assets/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="https://rmehta.github.io/zfs_admin/assets/css/hljs.css">
+    <link type="text/css" rel="stylesheet" href="https://rmehta.github.io/zfs_admin/assets/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="https://rmehta.github.io/zfs_admin/assets/css/octicons/octicons.css">
+    <link type="text/css" rel="stylesheet" href="https://rmehta.github.io/zfs_admin/assets/css/docs.css">
+
+	<script type="text/javascript" src="https://rmehta.github.io/zfs_admin/assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="https://rmehta.github.io/zfs_admin/assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://rmehta.github.io/zfs_admin/assets/js/highlight.pack.js"></script>
+
+    
+	<link rel="shortcut icon"
+		href="/assets/img/favicon.ico"
+		type="image/x-icon">
+	<link rel="icon"
+		href="/assets/img/favicon.ico"
+		type="image/x-icon">
+    
+<meta name="name" content="ZFS Pool" data-html-block="meta_block">
+<meta name="twitter:card" content="summary" data-html-block="meta_block">
+<meta name="twitter:description" content="Version 0.0.0 Source Table Name: tabZFS Pool Fields &lt;table class" data-html-block="meta_block">
+<meta name="og:type" content="article" data-html-block="meta_block">
+<meta name="og:description" content="Version 0.0.0 Source Table Name: tabZFS Pool Fields &lt;table class" data-html-block="meta_block">
+<meta name="og:title" content="ZFS Pool" data-html-block="meta_block">
+<meta name="twitter:title" content="ZFS Pool" data-html-block="meta_block">
+<meta name="description" content="Version 0.0.0 Source Table Name: tabZFS Pool Fields &lt;table class" data-html-block="meta_block">
+
+		
+			<style data-html-block="style"></style></head>
+<body>
+	<div class="offcanvas-container">
+		<div class="offcanvas">
+			<div class="offcanvas-main-section">
+				<div>
+						<header>
+	<nav class="navbar navbar-default navbar-main" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand ellipsis" href="https://rmehta.github.io/zfs_admin/">
+					<span>ZFS Admin</span>
+				</a>
+				<a class="pull-right toggle-sidebar visible-xs">
+					<i class="octicon octicon-three-bars"></i>
+				</a>
+			</div>
+			<div class="hidden-xs">
+				
+				<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right"><li data-label='User Guide' >
+	<a href="https://rmehta.github.io/zfs_admin/user"
+		
+		>
+	User Guide</a></li><li data-label='Developer Docs' >
+	<a href="https://rmehta.github.io/zfs_admin/current"
+		
+		>
+	Developer Docs</a></li>
+	<!-- post login tools -->
+
+</ul>
+
+				
+			</div>
+		</div>
+	</nav>
+</header>
+<script>$(function() { $('.dropdown-toggle').dropdown(); });</script><div class="hero-and-content">
+                        
+                            <div class="container">
+                            <div class="page-container" id="page-zfs_pool" data-path="current/models/zfs_admin/zfs_pool"
+    data-doctype="Web Page">
+	<div class="page-content">
+    	<div class="page-content-wrapper">
+            <div class="row">
+                <div class="col-sm-8">
+            		<div class="page-header-block" data-html-block="header"><h1>ZFS Pool</h1></div>
+                </div>
+                <div class="col-sm-4">
+            		<div class="page-header-actions-block" data-html-block="header-actions"></div>
+                </div>
+            </div>
+    		<div class="page-breadcrumbs" data-html-block="breadcrumbs">
+<ul class="breadcrumb">
+	<li>
+		<span class="icon icon-angle-left"></span>
+		<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin">
+		Module zfs_admin</a>
+	</li>
+	
+</ul>
+</div>
+    	    <div class="page-content-block">
+<div class="webpage-content">
+	
+	<article class="web-page-content" id="zfs_pool" style="text-align: Left">
+	<!-- title: ZFS Pool -->
+
+
+
+
+
+<div class="dev-header">
+
+<a class="btn btn-default btn-sm" disabled style="margin-bottom: 10px;">
+	Version 0.0.0</a>
+
+
+	<a class="btn btn-default btn-sm" href="https://github.com/rmehta/zfs_admin/tree/develop/zfs_admin/zfs_admin/doctype/zfs_pool"
+		target="_blank" style="margin-left: 10px; margin-bottom: 10px;"><i class="octicon octicon-mark-github"></i> Source</a>
+
+</div>
+
+
+
+
+
+    <p><b>Table Name:</b> <code>tabZFS Pool</code></p>
+
+
+
+
+<h3>Fields</h3>
+
+<table class="table table-bordered" style="table-layout: fixed;">
+    <thead>
+        <tr>
+            <th style="width: 5%">Sr</th>
+            <th style="width: 25%">Fieldname</th>
+            <th style="width: 20%">Type</th>
+            <th style="width: 25%">Label</th>
+            <th style="width: 25%">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr class="info">
+            <td>1</td>
+            <td ><code>section_break_5</code></td>
+            <td >
+                Section Break</td>
+            <td >
+                Virtual Devices
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>2</td>
+            <td ><code>virtual_devices</code></td>
+            <td >
+                Table</td>
+            <td >
+                Virtual Devices
+                
+            </td>
+            <td>
+                
+                
+
+
+<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin/zfs_pool_vdev">ZFS Pool VDev</a>
+
+
+                
+            </td>
+        </tr>
+        
+        <tr class="info">
+            <td>3</td>
+            <td ><code>section_break_7</code></td>
+            <td >
+                Section Break</td>
+            <td >
+                
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>4</td>
+            <td ><code>health</code></td>
+            <td >
+                Select</td>
+            <td >
+                Health
+                
+            </td>
+            <td>
+                <pre>ONLINE
+OFFLINE
+DEGRADED
+FAULTED
+REMOVED
+UNAVAIL</pre>
+            </td>
+        </tr>
+        
+        <tr >
+            <td>5</td>
+            <td ><code>size</code></td>
+            <td >
+                Data</td>
+            <td >
+                Size
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>6</td>
+            <td ><code>column_break_2</code></td>
+            <td class="info">
+                Column Break</td>
+            <td >
+                
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>7</td>
+            <td ><code>allocated</code></td>
+            <td >
+                Data</td>
+            <td >
+                Allocated
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>8</td>
+            <td ><code>free</code></td>
+            <td >
+                Data</td>
+            <td >
+                Free
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr class="info">
+            <td>9</td>
+            <td ><code>info</code></td>
+            <td >
+                Section Break</td>
+            <td >
+                Info
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>10</td>
+            <td ><code>capacity</code></td>
+            <td >
+                Percent</td>
+            <td >
+                Capacity Used
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>11</td>
+            <td ><code>fragmentation</code></td>
+            <td >
+                Percent</td>
+            <td >
+                Fragmentation
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>12</td>
+            <td ><code>dedupratio</code></td>
+            <td >
+                Float</td>
+            <td >
+                Deduplication Ratio
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>13</td>
+            <td ><code>comment</code></td>
+            <td >
+                Small Text</td>
+            <td >
+                Comment
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>14</td>
+            <td ><code>guid</code></td>
+            <td >
+                Int</td>
+            <td >
+                GUID
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>15</td>
+            <td ><code>dedupditto</code></td>
+            <td >
+                Int</td>
+            <td >
+                Deduplication Threshold (Blocks)
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>16</td>
+            <td ><code>column_break_16</code></td>
+            <td class="info">
+                Column Break</td>
+            <td >
+                
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>17</td>
+            <td ><code>version</code></td>
+            <td >
+                Data</td>
+            <td >
+                Version
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>18</td>
+            <td ><code>freeing</code></td>
+            <td >
+                Int</td>
+            <td >
+                Freeing
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>19</td>
+            <td ><code>bootfs</code></td>
+            <td >
+                Data</td>
+            <td >
+                Boot Filesystem
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>20</td>
+            <td ><code>cachefile</code></td>
+            <td >
+                Data</td>
+            <td >
+                Cache File
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>21</td>
+            <td ><code>altroot</code></td>
+            <td >
+                Data</td>
+            <td >
+                Alternate Root
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr class="info">
+            <td>22</td>
+            <td ><code>settings</code></td>
+            <td >
+                Section Break</td>
+            <td >
+                Settings
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>23</td>
+            <td ><code>listsnapshots</code></td>
+            <td >
+                Data</td>
+            <td >
+                List Snapshots
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>24</td>
+            <td ><code>delegation</code></td>
+            <td >
+                Data</td>
+            <td >
+                Delegation
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>25</td>
+            <td ><code>autoexpand</code></td>
+            <td >
+                Data</td>
+            <td >
+                Auto Expand
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>26</td>
+            <td ><code>leaked</code></td>
+            <td >
+                Int</td>
+            <td >
+                Leaked
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>27</td>
+            <td ><code>column_break_27</code></td>
+            <td class="info">
+                Column Break</td>
+            <td >
+                
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>28</td>
+            <td ><code>autoreplace</code></td>
+            <td >
+                Data</td>
+            <td >
+                Auto Replace
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>29</td>
+            <td ><code>readonly</code></td>
+            <td >
+                Data</td>
+            <td >
+                Read Only
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>30</td>
+            <td ><code>expandsize</code></td>
+            <td >
+                Data</td>
+            <td >
+                Expand Size
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>31</td>
+            <td ><code>maxblocksize</code></td>
+            <td >
+                Int</td>
+            <td >
+                Max Block Size
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>32</td>
+            <td ><code>failmode</code></td>
+            <td >
+                Data</td>
+            <td >
+                Fail Mode
+                
+            </td>
+            <td></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+    <hr>
+    <h3>Controller</h3>
+    <h4>zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool</h4>
+
+    
+
+
+
+	
+        
+	<h3 style="font-weight: normal;">Class <b>ZFSPool</b></h3>
+    
+    <p style="padding-left: 30px;"><i>Inherits from frappe.model.document.Document</i></h4>
+    
+    <div class="docs-attr-desc"><p></p>
+</div>
+    <div style="padding-left: 30px;">
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="add_vdev" href="#add_vdev" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>add_vdev</b>
+        <i class="text-muted">(self, vdev, is_child=False)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Add a new virtual device row</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="fix_vdev_ordering" href="#fix_vdev_ordering" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>fix_vdev_ordering</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Remove unused vdev records and order them so that the groups and disks
+appear below each other</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="get_disk_name" href="#get_disk_name" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>get_disk_name</b>
+        <i class="text-muted">(self, disk_path)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="get_vdev_row" href="#get_vdev_row" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>get_vdev_row</b>
+        <i class="text-muted">(self, guid)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="load_vdevs" href="#load_vdevs" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>load_vdevs</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Load videvs from libzfs</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="on_update" href="#on_update" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>on_update</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="sync" href="#sync" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>sync</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="sync_datasets" href="#sync_datasets" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>sync_datasets</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Sync dataset info</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="sync_one_dataset" href="#sync_one_dataset" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>sync_one_dataset</b>
+        <i class="text-muted">(self, d)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="sync_properties" href="#sync_properties" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>sync_properties</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Sync ZFS Pool properties</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="sync_vdev" href="#sync_vdev" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>sync_vdev</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Sync virtual devices</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="update_disks" href="#update_disks" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>update_disks</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Update Disk with pool and health status</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="zpool_add" href="#zpool_add" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>zpool_add</b>
+        <i class="text-muted">(self, type, disk1, disk2)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Runs zpool add</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="zpool_destroy" href="#zpool_destroy" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>zpool_destroy</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Runs zpool destroy</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="zpool_detach" href="#zpool_detach" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>zpool_detach</b>
+        <i class="text-muted">(self, disk)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Runs zpool detach</p>
+</div>
+	<br>
+
+        
+    </div>
+    <hr>
+
+	
+
+	
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.zpool_create" href="#zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.zpool_create" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.<b>zpool_create</b>
+        <i class="text-muted">(name, type, disk1, disk2)</i>
+    </p>
+	<div class="docs-attr-desc"><p>zpool create</p>
+</div>
+	<br>
+
+	
+
+
+    
+    
+        <h4>Linked In:</h4>
+        <ul>
+        
+			
+            <li>
+
+
+<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin/disk">Disk</a>
+
+</li>
+			
+        
+			
+            <li>
+
+
+<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin/zfs_dataset">ZFS Dataset</a>
+
+</li>
+			
+        
+        </ul>
+    
+
+
+<!-- autodoc -->
+<!-- jinja -->
+<!-- static -->
+	</article>
+	
+</div>
+</div>
+    	</div>
+	</div>
+</div>
+                            <!-- edit-link -->
+                            </div>
+                        
+                    </div>
+					<footer class="docs-footer">
+						<div class="container"><br>
+                        <div class="text-center">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="https://github.com/rmehta/zfs_admin">
+                                    Source</a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/rmehta/zfs_admin/issues">
+                                    Issues</a>
+                                </li>
+                                <li>
+                                    <a href="https://rmehta.github.io/zfs_admin/license.html">
+                                    License</a>
+                                </li>
+                                <li>
+                                    <a href="https://discuss.erpnext.com">
+                                    Forum</a>
+                                </li>
+                                <li>
+                                    <a href="https://apps.frappe.io">
+                                    Frappe Apps</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="built-with-frappe text-center">
+                            <img src="https://rmehta.github.io/zfs_admin/assets/img/frappe-bird-grey.svg" style="width: 40px; height: 40px; margin-top: 20px;">
+                        </div>
+                    </div>
+					</footer>
+				</div>
+			</div>
+			<div class="modal-backdrop offcanvas-main-section-overlay"></div>
+			<div class="sidebar sidebar-right visible-xs">
+				<div class="sidebar-navbar-items">
+					<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right"><li data-label='User Guide' >
+	<a href="https://rmehta.github.io/zfs_admin/user"
+		
+		>
+	User Guide</a></li><li data-label='Developer Docs' >
+	<a href="https://rmehta.github.io/zfs_admin/current"
+		
+		>
+	Developer Docs</a></li>
+	<!-- post login tools -->
+
+</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- js should be loaded in body! -->
+    <script>
+    $(function() {
+	if(hljs) {
+		$('pre code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
+	}
+
+	$(".toggle-sidebar").on("click", function() {
+		$(".offcanvas").addClass("active-right");
+		return false;
+	});
+
+	// collapse offcanvas sidebars!
+	$(".offcanvas .sidebar").on("click", "a", function() {
+		$(".offcanvas").removeClass("active-left active-right");
+	});
+
+	$(".offcanvas-main-section-overlay").on("click", function() {
+		$(".offcanvas").removeClass("active-left active-right");
+		return false;
+	});
+
+});
+    </script>
+		<script data-html-block="script"></script>
+
+	<!-- csrf_token --></body>
+</html>

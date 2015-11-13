@@ -44,7 +44,7 @@ frappe.ui.form.on("ZFS Pool", {
 		frm.page.add_menu_item(__("Destroy"), function() {
 			frappe.confirm(__("Do you want to destory {0}?", [frm.doc.name]), function() {
 				frappe.call({
-					method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.destroy",
+					method: "zfs_admin.api.zpool_destroy",
 					args: { zfs_pool: frm.doc.name },
 					callback: function(r) {
 						if(r.message==="okay") {
@@ -88,7 +88,7 @@ frappe.ui.form.on("ZFS Pool", {
 				if(!values) return;
 
 				frappe.call({
-					method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.add",
+					method: "zfs_admin.api.zpool_add",
 					args: {
 						zfs_pool: frm.is_new() ? values.pool_name : frm.doc.name,
 						type: values.type,
@@ -133,7 +133,7 @@ frappe.ui.form.on("ZFS Pool", {
 				if(!values) return;
 
 				frappe.call({
-					method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.create_dataset",
+					method: "zfs_admin.api.zfs_create",
 					args: {
 						zfs_pool: frm.doc.name,
 						dataset_name: values.dataset_name
@@ -188,7 +188,7 @@ frappe.ui.form.on("ZFS Pool VDev", {
 		// button action for detach disk
 		var row = frappe.get_doc(row_dt, row_dn);
 		frappe.call({
-			method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.detach",
+			method: "zfs_admin.api.zfs_detach",
 			args: {
 				zfs_pool: frm.doc.name,
 				disk: row.device_name

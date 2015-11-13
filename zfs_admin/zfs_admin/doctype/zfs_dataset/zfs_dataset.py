@@ -23,11 +23,3 @@ class ZFSDataset(Document):
 		if out=="okay":
 			self.delete()
 			return out
-
-@frappe.whitelist()
-def take_snapshot(zfs_dataset, snapshot_name):
-	return frappe.get_doc("ZFS Dataset", zfs_dataset).take_snapshot(snapshot_name)
-
-@frappe.whitelist()
-def destroy(name):
-	return frappe.get_doc("ZFS Dataset", name).destroy()

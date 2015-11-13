@@ -27,7 +27,7 @@ frappe.ui.form.on("ZFS Dataset", {
 				if(!values) return;
 
 				frappe.call({
-					method: "zfs_admin.zfs_admin.doctype.zfs_dataset.zfs_dataset.take_snapshot",
+					method: "zfs_admin.api.zfs_snapshot",
 					args: {
 						zfs_dataset: frm.doc.name,
 						snapshot_name: values.snapshot_name
@@ -49,7 +49,7 @@ frappe.ui.form.on("ZFS Dataset", {
 		frm.add_custom_button(__("Destroy"), function() {
 			frappe.confirm(__("Destroy {0}", [frm.doc.name]), function() {
 				frappe.call({
-					method: "zfs_admin.zfs_admin.doctype.zfs_dataset.zfs_dataset.destroy",
+					method: "zfs_admin.api.zfs_destroy",
 					args: {
 						name: frm.doc.name,
 					},

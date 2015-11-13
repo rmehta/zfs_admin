@@ -212,31 +212,3 @@ def zpool_create(name, type, disk1, disk2):
 	if run_command(args)=="okay":
 		sync_zfs()
 		return "okay"
-
-@frappe.whitelist()
-def add(zfs_pool, type, disk1, disk2=None, is_new=None):
-	"""zpool add"""
-	if cint(is_new):
-		return zpool_create(zfs_pool, type, disk1, disk2)
-	else:
-		zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
-		return zfs_pool.zpool_add(type, disk1, disk2)
-
-@frappe.whitelist()
-def detach(zfs_pool, disk):
-	"""zpool detach"""
-	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
-	return zfs_pool.zpool_detach(disk)
-
-@frappe.whitelist()
-def destroy(zfs_pool):
-	"""zpool detach"""
-	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
-	return zfs_pool.zpool_destroy()
-
-@frappe.whitelist()
-def create_dataset(zfs_pool, dataset_name):
-	frappe.has_permission("ZFS Dataset", "write")
-	if run_command(["sudo", "zfs", "create", zfs_pool + "/" + dataset_name])=="okay":
-		frappe.get_doc("ZFS Pool", zfs_pool).sync_datasets();
-		return "okay"

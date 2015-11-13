@@ -1,17 +1,106 @@
 {% block title %}{{ fs or "List" }}{% endblock %}
 
+<h1>{{ fs or "File Systems" }}</h1>
+
+{% block header_actions %}
+  {% if fs %}
+    <button type="submit" class="btn btn-default btn-sm btn-new-folder">
+    		{{ _("New Folder") }}</button>
+		<button type="submit" class="btn btn-default btn-sm btn-upload">
+    		{{ _("Upload") }}</button>
+  {% endif %}
+{% endblock %}
+
+<!-- content -->
 {% block content %}
-<h1>{{ fs or "List" }}</h1>
+
 {% if items %}
 <ul class="list-group">
 {% for item in items %}
 	<li class="list-group-item">
-		<a href="#">
-			{{ item.name }}
+		<a href="?viewer&fs={{ item.name }}">
+			<i class="octicon octicon-database"></i> {{ item.name }}
 			<span class="pull-right text-muted">{{ item.used }}</span>
 		</a>
 	</li>
 {% endfor %}
 </ul>
 {% endif %}
+
+{% if files %}
+<ul class="list-group">
+{% for file in files %}
+	<li class="list-group-item">
+		<a href="?viewer&fs={{ fs }}&path={{ file.name }}">
+			<i class="octicon octicon-file-text"></i> {{ file.name }}
+			{% if file.size %}
+			<span class="pull-right text-muted">{{ file.size }}</span>
+			{% endif %}
+		</a>
+	</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+	frappe.ready(function() {
+		viewer.setup_events()
+
+	});
+
+	var viewer = {
+		setup_events: function() {
+			if(viewer.loaded) return;
+
+			$("#page-viewer .btn-new-folder").on("click", function() {
+				var modal = new frappe.get_modal("Add Folder",
+				'<label for="new-folder-name">Folder Name</label>\
+					<input type="email" class="form-control" id="new-folder-name">');
+
+				modal.find(".modal-header .close").remove();
+
+				// close button
+				$('<button class="btn btn-sm btn-default pull-right" \
+					style="margin-top: -3px; margin-right: 5px;">Close</button>')
+					.prependTo(modal.find(".modal-header"))
+					.on("click", function() { modal.modal('hide'); });
+
+				// add button
+				$('<button class="btn btn-sm btn-primary pull-right" style="margin-top: -3px;">Add</button>')
+					.prependTo(modal.find(".modal-header"))
+					.on("click", function() {
+						var name = modal.find("#new-folder-name").val();
+
+						if(!name) {
+							frappe.msgprint("Name required");
+							return;
+						}
+
+						frappe.call({
+							method: "zfs_admin.api.add_folder",
+							args: {
+								zfs_dataset: "{{ fs }}",
+								path: "{{ path }}",
+								folder_name: name
+							},
+							callback: function(r) {
+								if(r.message==="okay") {
+								  window.reload();
+								}
+							}
+						});
+
+					});
+
+				modal.modal('show');
+			})
+
+			viewer.loaded = true;
+		}
+	}
+
+</script>
 {% endblock %}

@@ -13,6 +13,7 @@ MIT
 - verify password before delete
 - web view
 	- dataset list
+	- breadcrumbs
 	- dataset view (folder) fs=/pool2/test&path=pool2/test/test1
 		- list items (in folder)
 

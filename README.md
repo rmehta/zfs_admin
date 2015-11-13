@@ -10,11 +10,9 @@ MIT
 
 - re-org module view
 - sync selective
+- show size on dataset list, pool list
 - verify password before delete
 - web view
-	- dataset list
-	- breadcrumbs
-	- dataset view (folder) fs=/pool2/test&path=pool2/test/test1
-		- list items (in folder)
+	- download
 
 - install sync

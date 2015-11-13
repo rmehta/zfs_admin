@@ -27,6 +27,7 @@ frappe.ui.form.on("ZFS Pool", {
 		if(!frm.is_new()) {
 			frm.events.show_dashboard(frm);
 			frm.events.setup_destroy(frm);
+			frm.events.setup_sync(frm);
 			frm.events.setup_add_dataset(frm);
 			frm.events.setup_view_dataset(frm);
 		} else {
@@ -38,9 +39,19 @@ frappe.ui.form.on("ZFS Pool", {
 		}
 	},
 
-	setup_destroy: function(frm) {
-		if(frm.is_new()) return;
+	setup_sync: function(frm) {
+		frm.add_custom_button(__("Sync"), function() {
+			frappe.call({
+				method: "zfs_admin.api.zpool_sync",
+				args: { zfs_pool: frm.doc.name },
+				callback: function(r) {
+					frm.reload_doc();
+				}
+			});
+		});
+	},
 
+	setup_destroy: function(frm) {
 		frm.page.add_menu_item(__("Destroy"), function() {
 			frappe.confirm(__("Do you want to destory {0}?", [frm.doc.name]), function() {
 				frappe.call({

@@ -1,6 +1,17 @@
-{% block title %}{{ fs or "List" }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
-<h1>{{ fs or "File Systems" }}</h1>
+{% block header %}<h1>{{ title }}</h1>{% endblock %}
+
+{% block breadcrumbs %}
+{% if breadcrumb %}
+<ul class="breadcrumb">
+	<li>
+		<span class="icon icon-angle-left"></span>
+		<a href="{{ breadcrumb.path }}">{{ breadcrumb.title }}</a>
+	</li>
+</ul>
+{% endif %}
+{% endblock %}
 
 {% block header_actions %}
   {% if fs %}
@@ -18,10 +29,11 @@
 <ul class="list-group">
 {% for item in items %}
 	<li class="list-group-item">
+		<i class="octicon octicon-database"></i>
 		<a href="?viewer&fs={{ item.name }}">
-			<i class="octicon octicon-database"></i> {{ item.name }}
-			<span class="pull-right text-muted">{{ item.used }}</span>
+			{{ item.name }}
 		</a>
+		<span class="pull-right text-muted">{{ item.used }}</span>
 	</li>
 {% endfor %}
 </ul>
@@ -31,12 +43,13 @@
 <ul class="list-group">
 {% for file in files %}
 	<li class="list-group-item">
-		<a href="?viewer&fs={{ fs }}&path={{ file.name }}">
-			<i class="octicon octicon-file-text"></i> {{ file.name }}
-			{% if file.size %}
-			<span class="pull-right text-muted">{{ file.size }}</span>
-			{% endif %}
+		<i class="octicon octicon-{{ 'file-directory' if file.is_folder else 'file-text' }}"></i>
+		<a href="?viewer&fs={{ fs }}&path={{ file.path }}">
+			{{ file.name }}
 		</a>
+		{% if file.size %}
+		<span class="pull-right text-muted">{{ file.size }}</span>
+		{% endif %}
 	</li>
 {% endfor %}
 </ul>
@@ -55,6 +68,12 @@
 		setup_events: function() {
 			if(viewer.loaded) return;
 
+			viewer.setup_new_folder();
+			viewer.setup_file_drop();
+
+			viewer.loaded = true;
+		},
+		setup_new_folder: function() {
 			$("#page-viewer .btn-new-folder").on("click", function() {
 				var modal = new frappe.get_modal("Add Folder",
 				'<label for="new-folder-name">Folder Name</label>\
@@ -81,14 +100,10 @@
 
 						frappe.call({
 							method: "zfs_admin.api.add_folder",
-							args: {
-								zfs_dataset: "{{ fs }}",
-								path: "{{ path }}",
-								folder_name: name
-							},
+							args: { zfs_dataset: "{{ fs }}", path: "{{ path }}", folder_name: name },
 							callback: function(r) {
 								if(r.message==="okay") {
-								  window.reload();
+								  window.location.reload();
 								}
 							}
 						});
@@ -96,10 +111,49 @@
 					});
 
 				modal.modal('show');
-			})
+			});
 
-			viewer.loaded = true;
-		}
+		},
+		setup_file_drop: function() {
+			$(document).on('dragenter dragover', false)
+				.on('drop', function (e) {
+					var dataTransfer = e.originalEvent.dataTransfer;
+					if (!(dataTransfer && dataTransfer.files && dataTransfer.files.length > 0)) {
+						return;
+					}
+
+					var fileobj = dataTransfer.files[0];
+
+					e.stopPropagation();
+					e.preventDefault();
+
+					var freader = new FileReader();
+
+					frappe.freeze();
+					freader.onload = function() {
+						frappe.call({
+							method: "zfs_admin.api.upload_file",
+							args: {
+								zfs_dataset: "{{ fs }}",
+								path: "{{ path }}",
+								filename: fileobj.name,
+								filedata: freader.result.split(",")[1]
+							},
+							callback: function(r) {
+								if(r.message=="okay") {
+									window.location.reload();
+								}
+							},
+							always: function() {
+								frappe.unfreeze();
+							}
+						});
+					};
+
+					freader.readAsDataURL(fileobj);
+
+				});
+		},
 	}
 
 </script>

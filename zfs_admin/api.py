@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import frappe
 import os
+import base64
 
 from .utils import run_command
 
@@ -28,6 +29,12 @@ def zpool_destroy(zfs_pool):
 	return zfs_pool.zpool_destroy()
 
 @frappe.whitelist()
+def zpool_sync(zfs_pool):
+	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
+	if zfs_pool.has_permission("write"):
+		zfs_pool.sync()
+
+@frappe.whitelist()
 def zfs_create(zfs_pool, dataset_name):
 	frappe.has_permission("ZFS Dataset", "write")
 	if run_command(["sudo", "zfs", "create", zfs_pool + "/" + dataset_name])=="okay":
@@ -44,7 +51,32 @@ def zfs_destroy(name):
 
 @frappe.whitelist()
 def add_folder(zfs_dataset, folder_name, path=""):
-	if not path:
-		path = "/" + zfs_dataset
-	return run_command(["sudo", "mkdir", os.path.join(path, folder_name)])
+	"""Add a folder in a given dataset"""
+	folder_path = "/" + zfs_dataset
+	if path:
+		folder_path = os.path.join(folder_path, path)
+	return run_command(["sudo", "mkdir", os.path.join(folder_path, folder_name)])
 	return "okay"
+
+@frappe.whitelist()
+def upload_file(filedata, filename, zfs_dataset, path=""):
+	"""Save a file in the filesystem"""
+
+	if isinstance(filedata, unicode):
+		filedata = filedata.encode("utf-8")
+
+	if "," in filedata:
+		filedata = filedata.rsplit(",", 1)[1]
+	filedata = base64.b64decode(filedata)
+
+	file_path = "/" + zfs_dataset
+	if path:
+		file_path = os.path.join(file_path, path).encode("utf-8")
+
+	# save in tmp as there may be no permission in target dataset
+	tmp_path = os.path.join("/tmp", filename).encode("utf-8")
+	with open(tmp_path, "w+") as w:
+		w.write(filedata)
+
+	if run_command(["sudo", "mv", tmp_path, file_path])=="okay":
+		return "okay"

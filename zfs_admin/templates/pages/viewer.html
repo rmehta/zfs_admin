@@ -1,0 +1,17 @@
+{% block title %}{{ fs or "List" }}{% endblock %}
+
+{% block content %}
+<h1>{{ fs or "List" }}</h1>
+{% if items %}
+<ul class="list-group">
+{% for item in items %}
+	<li class="list-group-item">
+		<a href="#">
+			{{ item.name }}
+			<span class="pull-right text-muted">{{ item.used }}</span>
+		</a>
+	</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

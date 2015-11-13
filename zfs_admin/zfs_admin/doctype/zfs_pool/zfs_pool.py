@@ -38,14 +38,20 @@ class ZFSPool(Document):
 
 		# sync root dataset
 		self.sync_one_dataset(self.zpool.root_dataset)
+		self.added.append(self.zpool.root_dataset.name)
 
 		# sync all children
 		for c in self.zpool.root_dataset.children_recursive:
 			self.sync_one_dataset(c)
 
+		# sync all snapshots
+		for c in self.zpool.root_dataset.snapshots_recursive:
+			self.sync_one_dataset(c)
+
 		# delete unsued
 		for d in frappe.db.sql_list("""select name from `tabZFS Dataset`
-			where name not in ({0})""".format(", ".join(["%s"] * len(self.added))), self.added):
+			where zfs_pool = %s and name not in ({0})""".format(", ".join(["%s"] * len(self.added))),
+				[self.name] + self.added):
 			frappe.delete_doc("ZFS Dataset", d)
 
 	def sync_one_dataset(self, d):
@@ -58,6 +64,10 @@ class ZFSPool(Document):
 		sync_properties(zdataset, d.properties)
 
 		zdataset.zfs_pool = self.name
+
+		if d.type.name.lower()=="snapshot":
+			zdataset.snapshot_of = d.parent.name
+
 		zdataset.save()
 
 		self.added.append(zdataset.name)
@@ -223,3 +233,10 @@ def destroy(zfs_pool):
 	"""zpool detach"""
 	zfs_pool = frappe.get_doc("ZFS Pool", zfs_pool)
 	return zfs_pool.zpool_destroy()
+
+@frappe.whitelist()
+def create_dataset(zfs_pool, dataset_name):
+	frappe.has_permission("ZFS Dataset", "write")
+	if run_command(["sudo", "zfs", "create", zfs_pool + "/" + dataset_name])=="okay":
+		frappe.get_doc("ZFS Pool", zfs_pool).sync_datasets();
+		return "okay"

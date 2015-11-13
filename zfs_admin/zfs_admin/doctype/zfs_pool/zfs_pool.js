@@ -27,6 +27,8 @@ frappe.ui.form.on("ZFS Pool", {
 		if(!frm.is_new()) {
 			frm.events.show_dashboard(frm);
 			frm.events.setup_destroy(frm);
+			frm.events.setup_add_dataset(frm);
+			frm.events.setup_view_dataset(frm);
 		} else {
 			setTimeout(function() {
 				$(frm.wrapper).find(".empty-form-alert").html(__("Please add a device to save"));
@@ -113,6 +115,48 @@ frappe.ui.form.on("ZFS Pool", {
 		});
 
 		if(frm.is_new()) btn.addClass("btn-primary");
+	},
+
+	setup_add_dataset: function(frm) {
+		frm.add_custom_button(__("Create Dataset"), function() {
+			var dialog = new frappe.ui.Dialog({
+				title: __("Create Dataset"),
+				fields: [
+					{fieldname: "dataset_name", label: "Dataset Name", fieldtype:"Data",
+						reqd: 1}
+				],
+			});
+
+			dialog.set_primary_action(__("Create"), function() {
+				var values = dialog.get_values();
+
+				if(!values) return;
+
+				frappe.call({
+					method: "zfs_admin.zfs_admin.doctype.zfs_pool.zfs_pool.create_dataset",
+					args: {
+						zfs_pool: frm.doc.name,
+						dataset_name: values.dataset_name
+					},
+					callback: function(r) {
+						if(r.message==="okay") {
+							frappe.set_route("Form", "ZFS Dataset",
+								frm.doc.name + "/" + values.dataset_name);
+							dialog.hide();
+						}
+					}
+				});
+			});
+
+			dialog.show();
+		});
+	},
+
+	setup_view_dataset: function(frm) {
+		frm.add_custom_button(__("Datasets"), function() {
+			frappe.route_options = {"zfs_pool": frm.doc.name};
+			frappe.set_route("List", "ZFS Dataset");
+		});
 	},
 
 	show_dashboard: function(frm) {

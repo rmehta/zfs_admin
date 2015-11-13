@@ -1,0 +1,214 @@
+<!-- title: zfs_admin.api --><div class="dev-header">
+
+<a class="btn btn-default btn-sm" disabled style="margin-bottom: 10px;">
+	Version 0.0.0</a>
+
+
+	<a class="btn btn-default btn-sm" href="https://github.com/rmehta/zfs_admin/blob/develop/zfs_admin/api.py"
+		target="_blank" style="margin-left: 10px; margin-bottom: 10px;"><i class="octicon octicon-mark-github"></i> Source</a>
+
+</div>
+
+
+
+
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.add_folder</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.add_folder" href="#zfs_admin.api.add_folder" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>add_folder</b>
+        <i class="text-muted">(fs, folder_name, path=)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Add a folder in a given dataset</p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.download</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.download" href="#zfs_admin.api.download" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>download</b>
+        <i class="text-muted">(fs, file_path)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Download file</p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.get_path" href="#zfs_admin.api.get_path" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>get_path</b>
+        <i class="text-muted">(fs, path)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Get path with filesyste mount, currently uses /</p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.upload_file</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.upload_file" href="#zfs_admin.api.upload_file" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>upload_file</b>
+        <i class="text-muted">(filedata, filename, fs, path=)</i>
+    </p>
+	<div class="docs-attr-desc"><p>Save a file in the filesystem</p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.zfs_create</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.zfs_create" href="#zfs_admin.api.zfs_create" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>zfs_create</b>
+        <i class="text-muted">(zfs_pool, dataset_name)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.zfs_destroy</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.zfs_destroy" href="#zfs_admin.api.zfs_destroy" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>zfs_destroy</b>
+        <i class="text-muted">(name)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.zfs_snapshot</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.zfs_snapshot" href="#zfs_admin.api.zfs_snapshot" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>zfs_snapshot</b>
+        <i class="text-muted">(zfs_dataset, snapshot_name)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.zpool_add</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.zpool_add" href="#zfs_admin.api.zpool_add" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>zpool_add</b>
+        <i class="text-muted">(zfs_pool, type, disk1, disk2=None, is_new=None)</i>
+    </p>
+	<div class="docs-attr-desc"><p>zpool add or zpool create</p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.zpool_destroy</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.zpool_destroy" href="#zfs_admin.api.zpool_destroy" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>zpool_destroy</b>
+        <i class="text-muted">(zfs_pool)</i>
+    </p>
+	<div class="docs-attr-desc"><p>zpool destroy</p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.zpool_detach</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.zpool_detach" href="#zfs_admin.api.zpool_detach" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>zpool_detach</b>
+        <i class="text-muted">(zfs_pool, disk)</i>
+    </p>
+	<div class="docs-attr-desc"><p>zpool detach</p>
+</div>
+	<br>
+
+	
+
+	
+        
+    
+    <p><span class="label label-info">Public API</span>
+        <br><code>/api/method/zfs_admin.api.zpool_sync</code>
+    </p>
+	<p class="docs-attr-name">
+        <a name="zfs_admin.api.zpool_sync" href="#zfs_admin.api.zpool_sync" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		zfs_admin.api.<b>zpool_sync</b>
+        <i class="text-muted">(zfs_pool)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+	
+
+
+
+<!-- autodoc -->

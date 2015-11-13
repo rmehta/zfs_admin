@@ -1,0 +1,3 @@
+managing-pools
+managing-datasets
+user-portal

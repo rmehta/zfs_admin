@@ -4,8 +4,9 @@
 
 from __future__ import unicode_literals
 import frappe
+import libzfs
 from frappe.model.document import Document
-from zfs_admin.utils import run_command
+from zfs_admin.utils import run_command, sync_properties
 
 class ZFSDataset(Document):
 	def take_snapshot(self, snapshot_name):
@@ -23,3 +24,21 @@ class ZFSDataset(Document):
 		if out=="okay":
 			self.delete()
 			return out
+
+	def sync_zfs(self, zfs_dataset=None):
+		"""sync"""
+		if not zfs_dataset:
+			zfs = libzfs.ZFS()
+			zfs_dataset = zfs.get_dataset(self.name)
+
+		self.sync_properties(zfs_dataset)
+		self.save()
+
+		zpool = frappe.get_doc("ZFS Pool", self.zfs_pool)
+		zpool.sync_properties()
+		zpool.save()
+
+	def sync_properties(self, zfs_dataset):
+		sync_properties(self, zfs_dataset.properties)
+		if zfs_dataset.type.name.lower()=="snapshot":
+			self.snapshot_of = zfs_dataset.parent.name

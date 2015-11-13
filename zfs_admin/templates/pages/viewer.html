@@ -17,8 +17,6 @@
   {% if fs %}
     <button type="submit" class="btn btn-default btn-sm btn-new-folder">
     		{{ _("New Folder") }}</button>
-		<button type="submit" class="btn btn-default btn-sm btn-upload">
-    		{{ _("Upload") }}</button>
   {% endif %}
 {% endblock %}
 
@@ -43,16 +41,25 @@
 <ul class="list-group">
 {% for file in files %}
 	<li class="list-group-item">
-		<i class="octicon octicon-{{ 'file-directory' if file.is_folder else 'file-text' }}"></i>
+		{% if file.is_folder %}
+		<i class="octicon octicon-file-directory"></i>
 		<a href="?viewer&fs={{ fs }}&path={{ file.path }}">
 			{{ file.name }}
 		</a>
-		{% if file.size %}
+		{% else %}
+		<i class="octicon octicon-file-text"></i>
+		<a href="/api/method/zfs_admin.api.download?fs={{ fs }}&file_path={{ file.path }}" target="_blank">
+			{{ file.name }}
+		</a>
 		<span class="pull-right text-muted">{{ file.size }}</span>
 		{% endif %}
 	</li>
 {% endfor %}
 </ul>
+{% endif %}
+
+{% if fs %}
+<p class="text-muted">Drag and drop files to upload</p>
 {% endif %}
 
 {% endblock %}
@@ -100,7 +107,7 @@
 
 						frappe.call({
 							method: "zfs_admin.api.add_folder",
-							args: { zfs_dataset: "{{ fs }}", path: "{{ path }}", folder_name: name },
+							args: { fs: "{{ fs }}", path: "{{ path }}", folder_name: name },
 							callback: function(r) {
 								if(r.message==="okay") {
 								  window.location.reload();
@@ -124,6 +131,8 @@
 
 					var fileobj = dataTransfer.files[0];
 
+					console.log(fileobj);
+
 					e.stopPropagation();
 					e.preventDefault();
 
@@ -134,7 +143,7 @@
 						frappe.call({
 							method: "zfs_admin.api.upload_file",
 							args: {
-								zfs_dataset: "{{ fs }}",
+								fs: "{{ fs }}",
 								path: "{{ path }}",
 								filename: fileobj.name,
 								filedata: freader.result.split(",")[1]

@@ -165,7 +165,7 @@ frappe.ui.form.on("ZFS Pool", {
 
 	setup_view_dataset: function(frm) {
 		frm.add_custom_button(__("Datasets"), function() {
-			frappe.route_options = {"zfs_pool": frm.doc.name};
+			frappe.route_options = {"zfs_pool": frm.doc.name, "type": "filesystem"};
 			frappe.set_route("List", "ZFS Dataset");
 		});
 	},

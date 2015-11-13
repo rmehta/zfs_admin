@@ -1,0 +1,988 @@
+<!-- title: ZFS Dataset -->
+
+
+
+
+
+<div class="dev-header">
+
+<a class="btn btn-default btn-sm" disabled style="margin-bottom: 10px;">
+	Version 0.0.0</a>
+
+
+	<a class="btn btn-default btn-sm" href="https://github.com/rmehta/zfs_admin/tree/develop/zfs_admin/zfs_admin/doctype/zfs_dataset"
+		target="_blank" style="margin-left: 10px; margin-bottom: 10px;"><i class="octicon octicon-mark-github"></i> Source</a>
+
+</div>
+
+
+
+
+
+    <p><b>Table Name:</b> <code>tabZFS Dataset</code></p>
+
+
+
+
+<h3>Fields</h3>
+
+<table class="table table-bordered" style="table-layout: fixed;">
+    <thead>
+        <tr>
+            <th style="width: 5%">Sr</th>
+            <th style="width: 25%">Fieldname</th>
+            <th style="width: 20%">Type</th>
+            <th style="width: 25%">Label</th>
+            <th style="width: 25%">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr >
+            <td>1</td>
+            <td ><code>used</code></td>
+            <td >
+                Data</td>
+            <td >
+                used
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>2</td>
+            <td ><code>snapshot_of</code></td>
+            <td >
+                Link</td>
+            <td >
+                Snapshot Of
+                
+            </td>
+            <td>
+                
+                
+
+
+<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin/zfs_dataset">ZFS Dataset</a>
+
+
+                
+            </td>
+        </tr>
+        
+        <tr >
+            <td>3</td>
+            <td ><code>zfs_pool</code></td>
+            <td >
+                Link</td>
+            <td >
+                ZFS Pool
+                
+            </td>
+            <td>
+                
+                
+
+
+<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin/zfs_pool">ZFS Pool</a>
+
+
+                
+            </td>
+        </tr>
+        
+        <tr >
+            <td>4</td>
+            <td ><code>column_break_3</code></td>
+            <td class="info">
+                Column Break</td>
+            <td >
+                
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>5</td>
+            <td ><code>type</code></td>
+            <td >
+                Data</td>
+            <td >
+                Type
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>6</td>
+            <td ><code>allow_portal_access</code></td>
+            <td >
+                Check</td>
+            <td >
+                Allow portal access
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>7</td>
+            <td ><code>parent_dataset</code></td>
+            <td >
+                Link</td>
+            <td >
+                Parent Dataset
+                
+            </td>
+            <td>
+                
+                
+
+
+<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin/zfs_dataset">ZFS Dataset</a>
+
+
+                
+            </td>
+        </tr>
+        
+        <tr class="info">
+            <td>8</td>
+            <td ><code>properties</code></td>
+            <td >
+                Section Break</td>
+            <td >
+                Properties
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>9</td>
+            <td ><code>origin</code></td>
+            <td >
+                Data</td>
+            <td >
+                origin
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>10</td>
+            <td ><code>setuid</code></td>
+            <td >
+                Data</td>
+            <td >
+                setuid
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>11</td>
+            <td ><code>usedbyrefreservation</code></td>
+            <td >
+                Data</td>
+            <td >
+                usedbyrefreservation
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>12</td>
+            <td ><code>logicalused</code></td>
+            <td >
+                Data</td>
+            <td >
+                logicalused
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>13</td>
+            <td ><code>primarycache</code></td>
+            <td >
+                Data</td>
+            <td >
+                primarycache
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>14</td>
+            <td ><code>logbias</code></td>
+            <td >
+                Data</td>
+            <td >
+                logbias
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>15</td>
+            <td ><code>sync</code></td>
+            <td >
+                Data</td>
+            <td >
+                sync
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>16</td>
+            <td ><code>copies</code></td>
+            <td >
+                Data</td>
+            <td >
+                copies
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>17</td>
+            <td ><code>sharenfs</code></td>
+            <td >
+                Data</td>
+            <td >
+                sharenfs
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>18</td>
+            <td ><code>referenced</code></td>
+            <td >
+                Data</td>
+            <td >
+                referenced
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>19</td>
+            <td ><code>inconsistent</code></td>
+            <td >
+                Data</td>
+            <td >
+                inconsistent
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>20</td>
+            <td ><code>createtxg</code></td>
+            <td >
+                Data</td>
+            <td >
+                createtxg
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>21</td>
+            <td ><code>canmount</code></td>
+            <td >
+                Data</td>
+            <td >
+                canmount
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>22</td>
+            <td ><code>mountpoint</code></td>
+            <td >
+                Data</td>
+            <td >
+                mountpoint
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>23</td>
+            <td ><code>casesensitivity</code></td>
+            <td >
+                Data</td>
+            <td >
+                casesensitivity
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>24</td>
+            <td ><code>guid</code></td>
+            <td >
+                Data</td>
+            <td >
+                guid
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>25</td>
+            <td ><code>usedbysnapshots</code></td>
+            <td >
+                Data</td>
+            <td >
+                usedbysnapshots
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>26</td>
+            <td ><code>readonly</code></td>
+            <td >
+                Data</td>
+            <td >
+                readonly
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>27</td>
+            <td ><code>atime</code></td>
+            <td >
+                Data</td>
+            <td >
+                atime
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>28</td>
+            <td ><code>compression</code></td>
+            <td >
+                Data</td>
+            <td >
+                compression
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>29</td>
+            <td ><code>xattr</code></td>
+            <td >
+                Data</td>
+            <td >
+                xattr
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>30</td>
+            <td ><code>aclmode</code></td>
+            <td >
+                Data</td>
+            <td >
+                aclmode
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>31</td>
+            <td ><code>filesystem_count</code></td>
+            <td >
+                Data</td>
+            <td >
+                filesystem_count
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>32</td>
+            <td ><code>dedup</code></td>
+            <td >
+                Data</td>
+            <td >
+                dedup
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>33</td>
+            <td ><code>snapshot_limit</code></td>
+            <td >
+                Data</td>
+            <td >
+                snapshot_limit
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>34</td>
+            <td ><code>aclinherit</code></td>
+            <td >
+                Data</td>
+            <td >
+                aclinherit
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>35</td>
+            <td ><code>compressratio</code></td>
+            <td >
+                Data</td>
+            <td >
+                compressratio
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>36</td>
+            <td ><code>written</code></td>
+            <td >
+                Data</td>
+            <td >
+                written
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>37</td>
+            <td ><code>version</code></td>
+            <td >
+                Data</td>
+            <td >
+                version
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>38</td>
+            <td ><code>normalization</code></td>
+            <td >
+                Data</td>
+            <td >
+                normalization
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>39</td>
+            <td ><code>filesystem_limit</code></td>
+            <td >
+                Data</td>
+            <td >
+                filesystem_limit
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>40</td>
+            <td ><code>mounted</code></td>
+            <td >
+                Data</td>
+            <td >
+                mounted
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>41</td>
+            <td ><code>mlslabel</code></td>
+            <td >
+                Data</td>
+            <td >
+                mlslabel
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>42</td>
+            <td ><code>jailed</code></td>
+            <td >
+                Data</td>
+            <td >
+                jailed
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>43</td>
+            <td ><code>secondarycache</code></td>
+            <td >
+                Data</td>
+            <td >
+                secondarycache
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>44</td>
+            <td ><code>prevsnap</code></td>
+            <td >
+                Data</td>
+            <td >
+                prevsnap
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>45</td>
+            <td ><code>available</code></td>
+            <td >
+                Data</td>
+            <td >
+                available
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>46</td>
+            <td ><code>exec</code></td>
+            <td >
+                Data</td>
+            <td >
+                exec
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>47</td>
+            <td ><code>refquota</code></td>
+            <td >
+                Data</td>
+            <td >
+                refquota
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>48</td>
+            <td ><code>refcompressratio</code></td>
+            <td >
+                Data</td>
+            <td >
+                refcompressratio
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>49</td>
+            <td ><code>quota</code></td>
+            <td >
+                Data</td>
+            <td >
+                quota
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>50</td>
+            <td ><code>utf8only</code></td>
+            <td >
+                Data</td>
+            <td >
+                utf8only
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>51</td>
+            <td ><code>snapshot_count</code></td>
+            <td >
+                Data</td>
+            <td >
+                snapshot_count
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>52</td>
+            <td ><code>vscan</code></td>
+            <td >
+                Data</td>
+            <td >
+                vscan
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>53</td>
+            <td ><code>reservation</code></td>
+            <td >
+                Data</td>
+            <td >
+                reservation
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>54</td>
+            <td ><code>unique</code></td>
+            <td >
+                Data</td>
+            <td >
+                unique
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>55</td>
+            <td ><code>recordsize</code></td>
+            <td >
+                Data</td>
+            <td >
+                recordsize
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>56</td>
+            <td ><code>usedbychildren</code></td>
+            <td >
+                Data</td>
+            <td >
+                usedbychildren
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>57</td>
+            <td ><code>usedbydataset</code></td>
+            <td >
+                Data</td>
+            <td >
+                usedbydataset
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>58</td>
+            <td ><code>objsetid</code></td>
+            <td >
+                Data</td>
+            <td >
+                objsetid
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>59</td>
+            <td ><code>redundant_metadata</code></td>
+            <td >
+                Data</td>
+            <td >
+                redundant_metadata
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>60</td>
+            <td ><code>volmode</code></td>
+            <td >
+                Data</td>
+            <td >
+                volmode
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>61</td>
+            <td ><code>devices</code></td>
+            <td >
+                Data</td>
+            <td >
+                devices
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>62</td>
+            <td ><code>useraccounting</code></td>
+            <td >
+                Data</td>
+            <td >
+                useraccounting
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>63</td>
+            <td ><code>nbmand</code></td>
+            <td >
+                Data</td>
+            <td >
+                nbmand
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>64</td>
+            <td ><code>logicalreferenced</code></td>
+            <td >
+                Data</td>
+            <td >
+                logicalreferenced
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>65</td>
+            <td ><code>refreservation</code></td>
+            <td >
+                Data</td>
+            <td >
+                refreservation
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>66</td>
+            <td ><code>checksum</code></td>
+            <td >
+                Data</td>
+            <td >
+                checksum
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>67</td>
+            <td ><code>snapdir</code></td>
+            <td >
+                Data</td>
+            <td >
+                snapdir
+                
+            </td>
+            <td></td>
+        </tr>
+        
+        <tr >
+            <td>68</td>
+            <td ><code>sharesmb</code></td>
+            <td >
+                Data</td>
+            <td >
+                sharesmb
+                
+            </td>
+            <td></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+    <hr>
+    <h3>Controller</h3>
+    <h4>zfs_admin.zfs_admin.doctype.zfs_dataset.zfs_dataset</h4>
+
+    
+
+
+
+	
+        
+	<h3 style="font-weight: normal;">Class <b>ZFSDataset</b></h3>
+    
+    <p style="padding-left: 30px;"><i>Inherits from frappe.model.document.Document</i></h4>
+    
+    <div class="docs-attr-desc"><p></p>
+</div>
+    <div style="padding-left: 30px;">
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="destroy" href="#destroy" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>destroy</b>
+        <i class="text-muted">(self)</i>
+    </p>
+	<div class="docs-attr-desc"><p>zfs destroy</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="sync_properties" href="#sync_properties" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>sync_properties</b>
+        <i class="text-muted">(self, zfs_dataset)</i>
+    </p>
+	<div class="docs-attr-desc"><p><span class="text-muted">No docs</span></p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="sync_zfs" href="#sync_zfs" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>sync_zfs</b>
+        <i class="text-muted">(self, zfs_dataset=None)</i>
+    </p>
+	<div class="docs-attr-desc"><p>sync</p>
+</div>
+	<br>
+
+        
+        
+    
+    
+	<p class="docs-attr-name">
+        <a name="take_snapshot" href="#take_snapshot" class="text-muted small">
+            <i class="icon-link small" style="color: #ccc;"></i></a>
+		<b>take_snapshot</b>
+        <i class="text-muted">(self, snapshot_name)</i>
+    </p>
+	<div class="docs-attr-desc"><p>zfs snapshot</p>
+</div>
+	<br>
+
+        
+    </div>
+    <hr>
+
+	
+
+
+    
+    
+        <h4>Linked In:</h4>
+        <ul>
+        
+			
+            <li>
+
+
+<a href="https://rmehta.github.io/zfs_admin/current/models/zfs_admin/zfs_dataset">ZFS Dataset</a>
+
+</li>
+			
+        
+        </ul>
+    
+
+
+<!-- autodoc -->
+<!-- jinja -->
+<!-- static -->

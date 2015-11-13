@@ -7,6 +7,12 @@ frappe.ui.form.on("ZFS Dataset", {
 		} else {
 			frm.events.setup_take_snapshot(frm);
 			frm.events.setup_view_snapshots(frm);
+
+			if(frm.doc.allow_portal_access) {
+				frm.web_link = frm.sidebar.add_user_action("See on Portal", function() {})
+					.attr("href", "/viewer?fs=" + frm.doc.name).attr("target", "_blank");
+			}
+
 		};
 
 		frm.events.setup_destroy(frm);

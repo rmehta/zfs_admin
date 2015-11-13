@@ -9,7 +9,7 @@ import libzfs
 import subprocess
 from frappe.utils import cint
 from frappe.model.document import Document
-from zfs_admin.utils import sync_zfs, run_command, sync_properties
+from zfs_admin.utils import run_command, sync_properties
 
 class ZFSPool(Document):
 	@property
@@ -21,8 +21,8 @@ class ZFSPool(Document):
 	def sync(self):
 		self.sync_properties()
 		self.sync_vdev()
-		self.sync_datasets()
 		self.save()
+		self.sync_datasets()
 
 	def on_update(self):
 		self.update_disks()
@@ -61,13 +61,8 @@ class ZFSPool(Document):
 			zdataset = frappe.new_doc("ZFS Dataset")
 			zdataset.name = d.name
 
-		sync_properties(zdataset, d.properties)
-
+		zdataset.sync_properties(d)
 		zdataset.zfs_pool = self.name
-
-		if d.type.name.lower()=="snapshot":
-			zdataset.snapshot_of = d.parent.name
-
 		zdataset.save()
 
 		self.added.append(zdataset.name)
@@ -176,7 +171,7 @@ class ZFSPool(Document):
 
 		out = run_command(args)
 		if out=="okay":
-			sync_zfs()
+			self.sync()
 			return out
 
 	def zpool_detach(self, disk):
@@ -184,7 +179,7 @@ class ZFSPool(Document):
 		self.has_permission("write")
 		out = run_command(["sudo", "zpool", "detach", self.name, disk])
 		if out=="okay":
-			sync_zfs()
+			self.sync()
 			return out
 
 	def zpool_destroy(self):
@@ -196,10 +191,12 @@ class ZFSPool(Document):
 			# remove references from disk
 			frappe.db.sql("update tabDisk set zfs_pool='' where zfs_pool=%s", self.name)
 
+			# delete zfs dataset records
+			for d in frappe.db.get_all("ZFS Dataset", filters={"zfs_pool": self.name}):
+				frappe.delete_doc("ZFS Dataset", d.name)
+
 			# delete record
 			self.delete()
-
-			sync_zfs()
 			return "okay"
 
 def zpool_create(name, type, disk1, disk2):
@@ -210,5 +207,7 @@ def zpool_create(name, type, disk1, disk2):
 		args = ["sudo", "zpool", "create", name, type.lower(), disk1, disk2]
 
 	if run_command(args)=="okay":
-		sync_zfs()
+		zfs_pool = frappe.new_doc("ZFS Pool")
+		zfs_pool.name = name
+		zfs_pool.sync()
 		return "okay"
